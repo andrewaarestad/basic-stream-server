@@ -1,0 +1,30 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+	var socket = io.connect();
+
+	function addMessage(msg) {
+    	$("#stream-messages").append('<div class="message"><p>' + new Date().toISOString() + ' : ' + msg + '</p></div>');
+	}
+	socket.on('message', function(data) {
+    	addMessage(data);
+    	console.log(data);
+	});
+
+	socket.on('connect', function() {
+		console.log('connected');
+	});
+
+</script>
+</head>
+
+<body>
+<h1>Stream Server</h1>
+<p>Welcome to the stream server.</p>
+<br/>
+<div id="stream-messages"/>
+</body>
+</html>
+
